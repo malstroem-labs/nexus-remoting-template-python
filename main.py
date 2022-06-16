@@ -57,7 +57,7 @@ class PythonDataSource(IDataSource):
     async def get_availability(self, catalog_id: str, begin: datetime, end: datetime):
         return 1
 
-    def read(self, 
+    async def read(self, 
         begin: datetime, 
         end: datetime,
         requests: list[ReadRequest], 
