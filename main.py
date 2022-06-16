@@ -33,25 +33,17 @@ class PythonDataSource(IDataSource):
 
         if (catalog_id == "/A/B/C"):
 
-            representation = Representation(NexusDataType.INT64, timedelta(seconds=1))
+            representation = Representation(NexusDataType.FLOAT64, timedelta(seconds=1))
 
-            resource1 = ResourceBuilder("resource1") \
+            resource = ResourceBuilder("resource1") \
                 .with_unit("°C") \
                 .with_groups(["group1"]) \
                 .add_representation(representation) \
                 .build()
 
-            representation = Representation(NexusDataType.FLOAT64, timedelta(seconds=1))
-
-            resource2 = ResourceBuilder("resource2") \
-                .with_unit("bar") \
-                .with_groups(["group2"]) \
-                .add_representation(representation) \
-                .build()
-
             catalog = ResourceCatalogBuilder("/A/B/C") \
                 .with_property("a", "b") \
-                .add_resources([resource1, resource2]) \
+                .add_resources([resource]) \
                 .build()
 
         else:
