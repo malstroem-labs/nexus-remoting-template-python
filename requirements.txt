@@ -1,1 +1,1 @@
-nexus-remoting~=1.0.0b11049
+nexus-remoting~=1.0.0b11139
