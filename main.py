@@ -12,12 +12,8 @@ from nexus_remoting import RemoteCommunicator
 
 class PythonDataSource(IDataSource):
     
-    async def set_context(self, context, logger):
-        
+    async def set_context(self, context, logger):   
         self._context: DataSourceContext = context
-
-        if (context.resource_locator.scheme != "file"):
-            raise Exception(f"Expected 'file' URI scheme, but got '{context.resource_locator.scheme}'.")
 
     async def get_catalog_registrations(self, path: str):
 
