@@ -13,11 +13,7 @@ from nexus_remoting import RemoteCommunicator
 class PythonDataSource(IDataSource):
     
     async def set_context(self, context, logger):
-        
-        self._context: DataSourceContext = context
-
-        if (context.resource_locator.scheme != "file"):
-            raise Exception(f"Expected 'file' URI scheme, but got '{context.resource_locator.scheme}'.")
+        pass
 
     async def get_catalog_registrations(self, path: str):
 
@@ -46,10 +42,10 @@ class PythonDataSource(IDataSource):
                 .add_resources([resource]) \
                 .build()
 
-        else:
-            raise Exception("Unknown catalog ID.")
+            return catalog
 
-        return catalog
+        else:
+            raise Exception("Unknown catalog identifier.")
 
     async def get_time_range(self, catalog_id: str):
         return (datetime.min, datetime.max)
