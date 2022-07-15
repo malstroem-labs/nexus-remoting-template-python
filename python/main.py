@@ -71,7 +71,7 @@ class PythonDataSource(IDataSource):
 
 # args
 if len(sys.argv) < 3:
-    raise Exception(f"No argument for address and/or port was specified.")
+    raise Exception("No argument for address and/or port was specified.")
 
 # get address
 address = sys.argv[1]
