@@ -4,17 +4,14 @@ from datetime import datetime, timedelta
 from typing import Callable
 
 from nexus_extensibility import (CatalogRegistration, DataSourceContext,
-                                 IDataSource, NexusDataType, ReadDataHandler,
-                                 ReadRequest, Representation, ResourceBuilder,
-                                 ResourceCatalogBuilder)
+                                 NexusDataType, ReadDataHandler, ReadRequest,
+                                 Representation, ResourceBuilder,
+                                 ResourceCatalogBuilder, SimpleDataSource)
 from nexus_remoting import RemoteCommunicator
 
 
-class PythonDataSource(IDataSource):
+class PythonDataSource(SimpleDataSource):
     
-    async def set_context(self, context, logger):
-        pass
-
     async def get_catalog_registrations(self, path: str):
 
         if path == "/":
@@ -38,7 +35,6 @@ class PythonDataSource(IDataSource):
                 .build()
 
             catalog = ResourceCatalogBuilder("/A/B/C") \
-                .with_property("a", "b") \
                 .add_resources([resource]) \
                 .build()
 
@@ -47,12 +43,6 @@ class PythonDataSource(IDataSource):
         else:
             raise Exception("Unknown catalog identifier.")
 
-    async def get_time_range(self, catalog_id: str):
-        return (datetime.min, datetime.max)
-
-    async def get_availability(self, catalog_id: str, begin: datetime, end: datetime):
-        return 1
-
     async def read(self, 
         begin: datetime, 
         end: datetime,
@@ -60,12 +50,19 @@ class PythonDataSource(IDataSource):
         read_data: ReadDataHandler,
         report_progress: Callable[[float], None]):
 
+        temperature_data = await read_data("/SAMPLE/LOCAL/T1", begin, end)
+
         for request in requests:
-            double_data = request.data.cast("d")
 
-            for i in range(0, len(double_data)):
-                double_data[i] = i
+            # generate data
+            temperature_buffer = temperature_data.cast("d")
+            result_buffer = request.data.cast("d")
 
+            for i in range(0, len(result_buffer)):
+                # example: multiply by two
+                result_buffer[i] = temperature_buffer[i] * 2
+
+            # mark all data as valid
             for i in range(0, len(request.status)):
                 request.status[i] = 1
 
