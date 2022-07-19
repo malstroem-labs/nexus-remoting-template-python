@@ -55,12 +55,11 @@ class PythonDataSource(SimpleDataSource):
         for request in requests:
 
             # generate data
-            temperature_buffer = temperature_data.cast("d")
             result_buffer = request.data.cast("d")
 
             for i in range(0, len(result_buffer)):
                 # example: multiply by two
-                result_buffer[i] = temperature_buffer[i] * 2
+                result_buffer[i] = temperature_data[i] * 2
 
             # mark all data as valid
             for i in range(0, len(request.status)):
