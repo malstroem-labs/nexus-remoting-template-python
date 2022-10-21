@@ -3,10 +3,10 @@ import sys
 from datetime import datetime, timedelta
 from typing import Callable
 
-from nexus_extensibility import (CatalogRegistration, DataSourceContext,
-                                 NexusDataType, ReadDataHandler, ReadRequest,
-                                 Representation, ResourceBuilder,
-                                 ResourceCatalogBuilder, SimpleDataSource)
+from nexus_extensibility import (CatalogRegistration, NexusDataType,
+                                 ReadDataHandler, ReadRequest, Representation,
+                                 ResourceBuilder, ResourceCatalogBuilder,
+                                 SimpleDataSource)
 from nexus_remoting import RemoteCommunicator
 
 
