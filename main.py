@@ -50,7 +50,7 @@ class PythonDataSource(SimpleDataSource):
         read_data: ReadDataHandler,
         report_progress: Callable[[float], None]):
 
-        temperature_data = await read_data("/SAMPLE/LOCAL/T1", begin, end)
+        temperature_data = await read_data("/SAMPLE/LOCAL/T1/1_s", begin, end)
 
         for request in requests:
 
